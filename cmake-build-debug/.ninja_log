@@ -1,0 +1,13 @@
+# ninja log v6
+17	1995	7421597211449261	CMakeFiles/cpp_projects.dir/main.cpp.obj	51dd40a9ae5c496f
+293	4261	7432322298039261	CMakeFiles/cpp_projects.dir/hotel_management.cpp.obj	5d18a6ad7d3f9525
+1292	1618	7448357712430686	cpp_projects.exe	f6c61173e052fa1f
+35	126	7432322850113723	CMakeFiles/cpp_projects.dir/snake.cpp.obj	b79e638ccda375e8
+19	112	7422719553162682	CMakeFiles/cpp_projects.dir/exercises/main.cpp.obj	ba6a6a6f08fca697
+201	9378	7432322297115574	CMakeFiles/cpp_projects.dir/exercises/data_structures.cpp.obj	81e425e5f4e1b05b
+111	1859	7443552061595641	CMakeFiles/cpp_projects.dir/tetris.cpp.obj	2f6b6acee5344ed7
+30	1275	7448367437412360	build.ninja	331a7e430886f
+36	601	7436265888283233	CMakeFiles/cpp_projects.dir/calculator.cpp.obj	f37e014639b7147
+651	3725	7446088782109567	CMakeFiles/cpp_projects.dir/Calculator.cpp.obj	ff5118a727bd8531
+832	3743	7446088783920842	CMakeFiles/cpp_projects.dir/word_guesser.cpp.obj	69535633afa2714c
+41	1291	7448357699927968	CMakeFiles/cpp_projects.dir/tictactoe.cpp.obj	fc8220f499f2de74
