@@ -3,10 +3,8 @@ project(cpp_projects)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(cpp_projects exercises/main.cpp
-        exercises/main.cpp
-        exercises/data_structures.cpp
-        exercises/data_structures.h
-        Calculator.cpp
+add_executable(cpp_projects
+        calculator.cpp
         tictactoe.cpp
+        student_management_system.cpp
 )
