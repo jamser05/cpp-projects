@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -5,19 +6,13 @@
 
 using namespace std;
 
-const int MAX_STUDENTS = 100;
-
 class Student {
 public:
     string name;
     int roll_number;
     int age;
 
-    Student(string name, int roll_number, int age) {
-        this -> name = move(name);
-        this -> roll_number = roll_number;
-        this -> age = age;
-    }
+    explicit Student(string name = "", int roll_number = 0, int age = 0): name(move(name)), roll_number(roll_number), age(age) {}
 
     void display() const {
         cout << "Name: " << name << "\n";
@@ -29,17 +24,12 @@ public:
         out << name << "\n" << roll_number << "\n" << age << "\n";
     }
 
-    static Student load_from_file(ifstream &in) {
-        string name;
-        int roll_number;
-        int age;
-
-        getline(in, name);
-        in >> roll_number;
-        in >> age;
-        in.ignore();
-
-        return Student(name, roll_number, age);
+    static bool load_from_file(ifstream &in, Student &student) {
+        if (!getline(in, student.name)) return false;
+        if (!(in >> student.roll_number)) return false;
+        if (!(in >> student.age)) return false;
+        in.ignore(); // Ignore the newline after reading age
+        return true;
     }
 };
 
@@ -49,7 +39,8 @@ void add_student(vector<Student> &students) {
     int age;
 
     cout << "Enter student's name: ";
-    cin >> name;
+    cin.ignore(); // Ignore the newline left in the buffer
+    getline(cin, name);
     cout << "Enter roll number: ";
     cin >> roll_number;
     cout << "Enter age: ";
@@ -58,15 +49,22 @@ void add_student(vector<Student> &students) {
     students.emplace_back(name, roll_number, age);
 }
 
-void display_all_students(const vector<Student> &students) {
-    for (const auto &student :  students) {
-        student.display();
-        cout << "-------------------\n";
+void delete_record(vector<Student> &students, const string &filename) {
+    int id;
+    cout << "Enter student's roll number to delete: ";
+    cin >> id;
+
+    auto it = remove_if(students.begin(), students.end(), [id](const Student &student) {
+        return student.roll_number == id;
+    });
+
+    if (it != students.end()) {
+        students.erase(it, students.end());
+        cout << "Student with roll number " << id << " has been deleted.\n";
+    } else {
+        cout << "No student found with roll number " << id << ".\n";
     }
-}
 
-
-void save_students_to_file(const vector<Student> &students, const string &filename) {
     ofstream out(filename);
 
     if (!out.is_open()) {
@@ -74,11 +72,36 @@ void save_students_to_file(const vector<Student> &students, const string &filena
         return;
     }
 
-    for (const auto &student: students) {
+    for (const auto &student : students) {
         student.save_to_file(out);
     }
 
     out.close();
+
+}
+
+void display_all_students(const vector<Student> &students) {
+    if (students.empty()) {
+        cout << "No students found.\n";
+        return;
+    }
+
+    for (const auto &student : students) {
+        student.display();
+        cout << "-------------------\n";
+    }
+}
+
+void save_students_to_file(const vector<Student> &students, const string &filename) {
+    ofstream out(filename, ios::trunc); // Open file in trunc mode to clear previous data
+    if (!out.is_open()) {
+        cout << "Failed to open the file for writing!\n";
+        return;
+    }
+
+    for (const auto &student : students) {
+        student.save_to_file(out);
+    }
 }
 
 void load_students_from_file(vector<Student> &students, const string &filename) {
@@ -86,12 +109,30 @@ void load_students_from_file(vector<Student> &students, const string &filename) 
 
     if (!in.is_open()) {
         cout << "No previous records found. Starting with an empty list.\n";
-
         return;
     }
 
-    while (!in.eof()) {
-        students.push_back(Student::load_from_file(in));
+    while (true) {
+        string name;
+        int roll_number;
+        int age;
+
+        if (!getline(in, name)) {
+            break;
+        }
+        if (!(in >> roll_number)) {
+            break;
+        }
+        if (!(in >> age)) {
+            break;
+        }
+
+        if (empty(name)) {
+            break;
+        }
+        in.ignore();
+
+        students.emplace_back(name, roll_number, age);
     }
 
     in.close();
@@ -106,7 +147,8 @@ int main() {
     while (true) {
         cout << "1. Add Student\n";
         cout << "2. Display All Students\n";
-        cout << "3. Exit\n";
+        cout << "3. Delete Student\n";
+        cout << "4. Exit\n";
         cout << "Enter your choice: ";
 
         int choice;
@@ -120,10 +162,13 @@ int main() {
                 display_all_students(students);
                 break;
             case 3:
-                save_students_to_file(students, filename);
+                delete_record(students, filename);
                 break;
-            defualt:
+            case 4:
+                save_students_to_file(students, filename);
+                return 0;
+            default:
+                cout << "Invalid choice, please try again.\n";
         }
     }
 }
-
