@@ -51,7 +51,7 @@ void add_student(vector<Student> &students) {
 
 void delete_record(vector<Student> &students, const string &filename) {
     int id;
-    cout << "Enter student's roll number to delete: ";
+    cout << "Enter student's roll number to delete:";
     cin >> id;
 
     auto it = remove_if(students.begin(), students.end(), [id](const Student &student) {
