@@ -7,4 +7,5 @@ add_executable(cpp_projects
         calculator.cpp
         tictactoe.cpp
         student_management_system.cpp
+        snake.cpp
 )

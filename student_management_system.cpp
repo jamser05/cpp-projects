@@ -28,7 +28,8 @@ public:
         if (!getline(in, student.name)) return false;
         if (!(in >> student.roll_number)) return false;
         if (!(in >> student.age)) return false;
-        in.ignore(); // Ignore the newline after reading age
+        in.ignore();
+
         return true;
     }
 };
@@ -39,7 +40,7 @@ void add_student(vector<Student> &students) {
     int age;
 
     cout << "Enter student's name: ";
-    cin.ignore(); // Ignore the newline left in the buffer
+    cin.ignore();
     getline(cin, name);
     cout << "Enter roll number: ";
     cin >> roll_number;
@@ -77,7 +78,6 @@ void delete_record(vector<Student> &students, const string &filename) {
     }
 
     out.close();
-
 }
 
 void display_all_students(const vector<Student> &students) {
@@ -93,7 +93,8 @@ void display_all_students(const vector<Student> &students) {
 }
 
 void save_students_to_file(const vector<Student> &students, const string &filename) {
-    ofstream out(filename, ios::trunc); // Open file in trunc mode to clear previous data
+    ofstream out(filename, ios::trunc);
+
     if (!out.is_open()) {
         cout << "Failed to open the file for writing!\n";
         return;
@@ -138,7 +139,7 @@ void load_students_from_file(vector<Student> &students, const string &filename) 
     in.close();
 }
 
-int main() {
+void start_student_managament_system() {
     vector<Student> students;
     string filename = "students.txt";
 
@@ -157,18 +158,18 @@ int main() {
         switch (choice) {
             case 1:
                 add_student(students);
-                break;
+            break;
             case 2:
                 display_all_students(students);
-                break;
+            break;
             case 3:
                 delete_record(students, filename);
-                break;
+            break;
             case 4:
                 save_students_to_file(students, filename);
-                return 0;
             default:
                 cout << "Invalid choice, please try again.\n";
         }
     }
 }
+

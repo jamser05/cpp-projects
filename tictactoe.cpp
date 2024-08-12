@@ -238,7 +238,7 @@ class TicTacToe {
 
 
 
-int start_game() {
+int start_tic_tac_toe_game() {
     tic_tac_toe.welcome_player();
 
     string player1_name = tic_tac_toe.get_player1_name();
