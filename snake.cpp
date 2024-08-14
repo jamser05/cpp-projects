@@ -15,7 +15,7 @@ int DIMENSION = 20;
 
 class Snake {
 public:
-    snake_rep snake; symbol snake_symbol = '*';
+    snake_rep snake; symbol snake_symbol = '@';
     food_rep food; symbol food_symbol = 'O';
     board_rep board;
 
@@ -31,6 +31,14 @@ public:
         return distr(gen);
     }
 
+    bool out_of_bounds() {
+        if (snake[0].first < 1 || snake[0].first >= DIMENSION - 1 || snake[0].second < 1 || snake[0].second >= DIMENSION - 1) {
+            return true;
+        }
+
+        return false;
+    }
+
     void get_snake_location() {
         int snake_x_pos = generate_random_position(1, DIMENSION - 2);
         int snake_y_pos = generate_random_position(1, DIMENSION - 2);
@@ -38,14 +46,37 @@ public:
         snake.emplace_back(snake_x_pos, snake_y_pos);
     }
 
-    bool food_eaten() {
+    bool is_food_eaten() {
         if (snake[0].first == food.first && snake[0].second == food.second) {
-            snake.emplace_back(snake[0].first, snake[0].second + 1);
-            get_food_location();
             return true;
         }
 
         return false;
+    }
+
+    void eat_food(char direction) {
+        if (is_food_eaten()) {
+            int new_x = snake.back().first;
+            int new_y = snake.back().second;
+
+            switch (direction) {
+                case 'w':
+                    new_x += 1;
+                    break;
+                case 's':
+                    new_x -= 1;
+                    break;
+                case 'd':
+                    new_y -= 1;
+                    break;
+                case 'a':
+                    new_y += 1;
+                    break;
+            }
+
+            snake.emplace_back(new_x, new_y);
+            get_food_location();
+        }
     }
 
     void get_food_location() {
@@ -67,6 +98,26 @@ public:
         }
     }
 
+    void update_snake_position(char direction) {
+        for (int i = snake.size() - 1; i > 0; --i) {
+            snake[i] = snake[i - 1];
+        }
+        switch (direction) {
+            case 'w':
+                snake[0].first -= 1;
+                break;
+            case 's':
+                snake[0].first += 1;
+                break;
+            case 'd':
+                snake[0].second += 1;
+            break;
+            case 'a':
+                snake[0].second -= 1;
+            break;
+        }
+    }
+
     void preview_board() {
         make_board();
         cout << "Welcome to Snake\n";
@@ -76,11 +127,23 @@ public:
             for (int column = 0; column < DIMENSION; column++) {
                 if (row == food.first && column == food.second) {
                     cout << food_symbol;
-                } else if (row == snake[0].first && column == snake[0].second) {
-                    cout << snake_symbol;
-                } else {
-                    cout << board[row][column];
+                }  else {
+                    bool is_snake_part = false;
+
+                    for (int part = 0; part < snake.size(); part++) {
+                        if (snake[part].first == row && snake[part].second == column) {
+                            cout << snake_symbol;
+                            is_snake_part=true;
+                            break;
+                        }
+                    }
+
+                    if (!is_snake_part) {
+                        cout << board[row][column];
+                    }
                 }
+
+
             }
             cout << "\n";
         }
@@ -91,39 +154,24 @@ public:
 void start_snake_game() {
     char key_pressed;
     snake_obj.get_snake_location();
+    snake_obj.get_food_location();
 
     while (true) {
+        if (snake_obj.out_of_bounds()) {
+            break;
+        }
+
+        snake_obj.eat_food(key_pressed);
+
         if (_kbhit()) {
-            snake_obj.preview_board();
 
             key_pressed = _getch();
+            snake_obj.preview_board();
 
-            switch (key_pressed) {
-                case 'w':
-                    for (int part = 0; part < snake_obj.snake.size(); part++) {
-                        snake_obj.snake[part].first -= 1;
-                    }
-                break;
-                case 's':
-                    for (int part = 0; part < snake_obj.snake.size(); part++) {
-                        snake_obj.snake[part].first += 1;
-                    }
-                break;
-                case 'd':
-                    for (int part = 0; part < snake_obj.snake.size(); part++) {
-                        snake_obj.snake[part].second += 1;
-                    }
-                break;
-                case 'a':
-                    for (int part = 0; part < snake_obj.snake.size(); part++) {
-                        snake_obj.snake[part].second -= 1;
-                    }
-                break;
-                default:
-                    cout << "Not a valid movement";
-                break;
-            }
         }
+
+        snake_obj.update_snake_position(key_pressed);
+        snake_obj.eat_food(key_pressed);
     }
 }
 
