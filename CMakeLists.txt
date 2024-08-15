@@ -7,5 +7,8 @@ add_executable(cpp_projects
         calculator.cpp
         tictactoe.cpp
         student_management_system.cpp
-        snake.cpp
+        snake_game/snake.cpp
+        snake_game/Snake.h
+        snake_game/main.cpp
+        snake_game/score_storage.cpp
 )

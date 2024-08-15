@@ -67,11 +67,23 @@ build CMakeFiles/cpp_projects.dir/student_management_system.cpp.obj: CXX_COMPILE
   OBJECT_DIR = CMakeFiles\cpp_projects.dir
   OBJECT_FILE_DIR = CMakeFiles\cpp_projects.dir
 
-build CMakeFiles/cpp_projects.dir/snake.cpp.obj: CXX_COMPILER__cpp_projects_unscanned_Debug D$:/cpp_projects/snake.cpp || cmake_object_order_depends_target_cpp_projects
-  DEP_FILE = CMakeFiles\cpp_projects.dir\snake.cpp.obj.d
+build CMakeFiles/cpp_projects.dir/snake_game/Snake.cpp.obj: CXX_COMPILER__cpp_projects_unscanned_Debug D$:/cpp_projects/snake_game/Snake.cpp || cmake_object_order_depends_target_cpp_projects
+  DEP_FILE = CMakeFiles\cpp_projects.dir\snake_game\Snake.cpp.obj.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\cpp_projects.dir
-  OBJECT_FILE_DIR = CMakeFiles\cpp_projects.dir
+  OBJECT_FILE_DIR = CMakeFiles\cpp_projects.dir\snake_game
+
+build CMakeFiles/cpp_projects.dir/snake_game/main.cpp.obj: CXX_COMPILER__cpp_projects_unscanned_Debug D$:/cpp_projects/snake_game/main.cpp || cmake_object_order_depends_target_cpp_projects
+  DEP_FILE = CMakeFiles\cpp_projects.dir\snake_game\main.cpp.obj.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\cpp_projects.dir
+  OBJECT_FILE_DIR = CMakeFiles\cpp_projects.dir\snake_game
+
+build CMakeFiles/cpp_projects.dir/snake_game/score_storage.cpp.obj: CXX_COMPILER__cpp_projects_unscanned_Debug D$:/cpp_projects/snake_game/score_storage.cpp || cmake_object_order_depends_target_cpp_projects
+  DEP_FILE = CMakeFiles\cpp_projects.dir\snake_game\score_storage.cpp.obj.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\cpp_projects.dir
+  OBJECT_FILE_DIR = CMakeFiles\cpp_projects.dir\snake_game
 
 
 # =============================================================================
@@ -81,7 +93,7 @@ build CMakeFiles/cpp_projects.dir/snake.cpp.obj: CXX_COMPILER__cpp_projects_unsc
 #############################################
 # Link the executable cpp_projects.exe
 
-build cpp_projects.exe: CXX_EXECUTABLE_LINKER__cpp_projects_Debug CMakeFiles/cpp_projects.dir/calculator.cpp.obj CMakeFiles/cpp_projects.dir/tictactoe.cpp.obj CMakeFiles/cpp_projects.dir/student_management_system.cpp.obj CMakeFiles/cpp_projects.dir/snake.cpp.obj
+build cpp_projects.exe: CXX_EXECUTABLE_LINKER__cpp_projects_Debug CMakeFiles/cpp_projects.dir/calculator.cpp.obj CMakeFiles/cpp_projects.dir/tictactoe.cpp.obj CMakeFiles/cpp_projects.dir/student_management_system.cpp.obj CMakeFiles/cpp_projects.dir/snake_game/Snake.cpp.obj CMakeFiles/cpp_projects.dir/snake_game/main.cpp.obj CMakeFiles/cpp_projects.dir/snake_game/score_storage.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\cpp_projects.dir
