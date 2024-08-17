@@ -1,11 +1,7 @@
-// Snake.cpp
 #include "Snake.h"
 #include <iostream>
-#include <conio.h>
 #include <fstream>
 #include <vector>
-#include <chrono>
-#include <thread>
 #include <random>
 
 using namespace std;

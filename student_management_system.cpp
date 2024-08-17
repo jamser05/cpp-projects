@@ -12,7 +12,8 @@ public:
     int roll_number;
     int age;
 
-    explicit Student(string name = "", int roll_number = 0, int age = 0): name(move(name)), roll_number(roll_number), age(age) {}
+    explicit Student(string name = "", int roll_number = 0, int age = 0):
+    name(move(name)), roll_number(roll_number), age(age) {}
 
     void display() const {
         cout << "Name: " << name << "\n";

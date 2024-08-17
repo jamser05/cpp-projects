@@ -1,4 +1,3 @@
-// Snake.h
 #ifndef SNAKE_H
 #define SNAKE_H
 
@@ -37,4 +36,4 @@ public:
     void preview_board();
 };
 
-#endif // SNAKE_H
+#endif

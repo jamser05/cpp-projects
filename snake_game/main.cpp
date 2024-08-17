@@ -1,18 +1,41 @@
 #include "Snake.h"
-#include <iostream>
+#include "Player.h"
 #include <conio.h>
 #include <chrono>
 #include <thread>
+#include <bits/ranges_algo.h>
 
 using namespace std;
 
 Snake snake_obj;
 
-void show_score() {
-    cout << "Final Score: " << snake_obj.score << "\n";
+void game_over_options(vector<Player> players, int score) {
+    string filename = "snake_players_stats.txt";
+
+    cout << "1. Add Player\n";
+    cout << "2. Show Leaderboard\n";
+    cout << "3. Exit\n";
+    cout << "Enter your choice: ";
+
+    int choice;
+    cin >> choice;
+
+    switch (choice) {
+        case 1:
+            add_player(players,score);
+        break;
+        case 2:
+            display_leaderboard(players);
+        break;
+        case 3:
+            save_players_to_file(players, filename);
+        default:
+            game_over_options(players, score);
+    }
 }
 
 void start_snake_game() {
+    vector<Player> players;
     char key_pressed;
 
     snake_obj.get_snake_location();
@@ -21,7 +44,7 @@ void start_snake_game() {
 
     while (true) {
         if (snake_obj.out_of_bounds() || snake_obj.snake_hit_itself()) {
-            show_score();
+            game_over_options(players, snake_obj.score);
             break;
         }
 

@@ -10,5 +10,6 @@ add_executable(cpp_projects
         snake_game/snake.cpp
         snake_game/Snake.h
         snake_game/main.cpp
-        snake_game/score_storage.cpp
+        snake_game/player.cpp
+        snake_game/player.h
 )
