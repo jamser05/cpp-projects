@@ -12,4 +12,7 @@ add_executable(cpp_projects
         snake_game/main.cpp
         snake_game/player.cpp
         snake_game/player.h
+        matrix_library.cpp
+        matrix_library.h
+        matrix_library.h
 )

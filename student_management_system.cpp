@@ -173,4 +173,3 @@ void start_student_managament_system() {
         }
     }
 }
-
